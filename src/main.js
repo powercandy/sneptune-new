@@ -43,6 +43,10 @@ const router = new Router({
 
 /* 路由进入前 */
 router.beforeEach((to, from , next) => {
+  // 设置title
+  if (to.meta.title) {
+    document.title = to.meta.title
+  }
   // ！未完成任务，页面进入身份认证
   let name = localStorage.getItem('user_name')
   let requiresAuth = to.meta.requiresAuth

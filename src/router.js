@@ -1,6 +1,8 @@
 
 // 登陆页面
 const adLogin = () => import(/* webpackChunkName: "adMain" */ './views/admin/login.vue')
+// 页面管理
+const adArticle = () => import(/* webpackChunkName: "adMain" */ './views/page/index.vue')
 // 后台
 const adMain = () => import(/* webpackChunkName: "adMain" */ './views/admin/main.vue')
 // 后台 - 控制台
@@ -41,6 +43,15 @@ const routes = [
       requiresAuth: false
     },
     component: adLogin
+  },
+  {
+    path: '/article/:id',
+    name: 'page',
+    meta: {
+      title: '文章页面',
+      requiresAuth: false
+    },
+    component: adArticle
   },
   {
     path: '/',

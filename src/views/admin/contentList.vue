@@ -1,10 +1,12 @@
 <template>
   <div class="ad-content">
-    <ad-search :searchLabel="searchLabel" @editorContent=editorContent></ad-search>
+    <ad-search :searchLabel="searchLabel" @editorContent=editorContent @searchList="searchList"></ad-search>
     <ad-table v-if="array.length"
     :dataArray="array"
     :labelArray="tableLabel"
-    @editorExist="editorExist">
+    @editorExist="editorExist"
+    @deleteExist="deleteExist"
+    @goToPage="goToPage">
     </ad-table>
   </div>
 </template>
@@ -29,7 +31,12 @@ export default {
         {
           label: '分类',
           prop: 'classify',
-          width: '300'
+          width: '100'
+        },
+        {
+          label: '发布状态',
+          prop: 'status',
+          width: '100'
         },
         {
           label: '阅读量',
@@ -38,13 +45,17 @@ export default {
         },
         {
           label: '发布时间',
+          prop: 'create_time',
+          width: '180'
+        },
+        {
+          label: '更新时间',
           prop: 'modify_time',
-          width: '200'
+          width: '180'
         },
         {
           label: '操作',
-          prop: 'setting',
-          width: '150'
+          prop: 'setting'
         }
       ],
       totalData: 38,
@@ -102,6 +113,33 @@ export default {
     // 编辑内容
     editorExist (id) {
       this.$router.push(`/content/editor/${id}`)
+    },
+    // 删除内容
+    deleteExist(id) {
+      this.$api.deleteContentData({id: id}).then(res => {
+        if (!res.data.errno) {
+          this.$message({
+            message: '删除成功',
+            type: 'success',
+            onClose: () => {
+              this.getList()
+            }
+          })
+        }
+      })
+    },
+    // 页面跳转
+    goToPage(id) {
+      this.$router.push(`/article/${id}`)
+    },
+    searchList(keys) {
+      this.$api.searchContentList({keys: keys}).then(res => {
+        // to do
+        if (!res.data.errno) {
+          this.array = res.data.data.contentInfo
+          console.log(this.array)
+        }
+      })
     }
   }
 }

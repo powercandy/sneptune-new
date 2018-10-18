@@ -27,14 +27,14 @@ export default {
       data: data
     })
   },
-  /* 标签管理-获取标签列表 */
+  /* 分类管理-获取分类列表 */
   getMetaList() {
     return axios({
       method: 'get',
       url: '/meta/list'
     })
   },
-  /* 标签管理-获取标签内容 */
+  /* 分类管理-获取分类内容 */
   getMetaContent(data) {
     return axios({
       method: 'post',
@@ -42,7 +42,7 @@ export default {
       data: data
     })
   },
-  /* 标签管理-新增标签 */
+  /* 分类管理-新增分类 */
   metaAddData(data) {
     return axios({
       method: 'post',
@@ -50,7 +50,7 @@ export default {
       data: data
     })
   },
-  /* 标签管理-更新标签 */
+  /* 分类管理-更新分类 */
   metaUpdateData(data) {
     return axios({
       method: 'post',
@@ -58,7 +58,7 @@ export default {
       data: data
     })
   },
-  /* 标签管理-删除标签 */
+  /* 分类管理-删除分类 */
   deleteClassifyData(data) {
     return axios({
       method: 'post',
@@ -82,10 +82,42 @@ export default {
     })
   },
   /* 内容管理-更新内容 */
+  addContent(data) {
+    return axios({
+      method: 'post',
+      url: 'content/add',
+      data: data
+    })
+  },
+  /* 内容管理-更新内容 */
   updateContent(data) {
     return axios({
       method: 'post',
       url: 'content/update',
+      data: data
+    })
+  },
+  /* 内容管理-删除内容 */
+  deleteContentData(data) {
+    return axios({
+      method: 'post',
+      url: 'content/delete',
+      data: data
+    })
+  },
+  /* 内容搜索 */
+  searchContentList(data) {
+    return axios({
+      method: 'post',
+      url: 'content/search',
+      data: data
+    })
+  },
+  /* 查看文章 */
+  viewArticle(data) {
+    return axios({
+      method: 'post',
+      url: 'view',
       data: data
     })
   }

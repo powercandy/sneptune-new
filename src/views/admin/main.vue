@@ -66,7 +66,7 @@ export default {
       account: 'admin',
       breadcrumbArray: {
         controller: '控制台',
-        content: '内容',
+        content: '文章',
         page: '页面',
         comment: '评论',
         classify: '分类',

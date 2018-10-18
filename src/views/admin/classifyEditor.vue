@@ -60,6 +60,7 @@ export default {
   methods: {
     // 提交信息
     onSubmit () {
+      this.formData.classify = this.formData.name
       // 新增数据
       if (this.type == 'add') {
         this.$api.metaAddData(this.formData).then(res => {

@@ -4,33 +4,35 @@
       <el-form-item label="文章标题" prop="title">
         <el-input placeholder="文章标题" v-model="formData.title"></el-input>
       </el-form-item>
-      <el-form-item label="文章标识" prop="slug">
+      <!-- <el-form-item label="文章标识" prop="slug">
         <el-input placeholder="文章标识" v-model="formData.slug"></el-input>
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item label="文章分类" prop="classify">
         <el-select v-model="formData.classify" placeholder="请选择">
           <el-option
             v-for="item in classifyList"
             :key="item.id"
             :label="item.label"
-            :value="item.id">
+            :value="item.label">
           </el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="缩略图" prop="thumb">
+      <!-- <el-form-item label="缩略图" prop="thumb">
         <el-input placeholder="缩略图" v-model="formData.thumb"></el-input>
-      </el-form-item>
-      <el-form-item label="发布时间" prop="date">
+      </el-form-item> -->
+      <!-- <el-form-item label="发布时间" prop="date">
         <el-date-picker
           v-model="formData.modify_time"
           type="datetime"
           value-format="timestamp"
           placeholder="选择日期">
         </el-date-picker>
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item label="状态" porp="status">
-        <el-radio v-model="formData.status" label="1">草稿</el-radio>
-        <el-radio v-model="formData.status" label="2">发布</el-radio>
+        <el-radio-group v-model="formData.status">
+          <el-radio :label="0">草稿</el-radio>
+          <el-radio :label="1">发布</el-radio>
+        </el-radio-group>
       </el-form-item>
       <!-- <el-form-item label="标签" prop="tag">
         <el-checkbox-group
@@ -56,14 +58,15 @@ export default {
       // 表单数据
       formData: {
         title: '', // 标题
-        slug: '', // 
-        classify: '', // 
-        thumb: '', // 缩略图
-        modify_time: '', // 修改时间
+        // slug: '', // 
+        classify: '', // 分类
+        // thumb: '', // 缩略图
+        // modify_time: '', // 修改时间
         status: '', // 发布状态
-        tag: [], // 标签列表
+        // tag: [], // 标签列表
         markdown: '', // 文章markdown内容
-        content: '' // 文章html结构
+        content: '', // 文章html结构
+        description: '' // 文章描述
       },
       rules: {
         // 标题规则
@@ -72,9 +75,9 @@ export default {
           { min: 3, max: 100, message: '长度在 3 到 5 个字符', trigger: 'blur' }
         ],
         // 分类规则
-        classify: [
-          { required: true, message: '请选择分类', trigger: 'change' }
-        ],
+        // classify: [
+        //   { required: true, message: '请选择分类', trigger: 'change' }
+        // ],
         // 日期规则
         // date: [
         //   { required: true, message: '请选择发布时间', trigger: 'change' }
@@ -85,32 +88,42 @@ export default {
         ]
       },
       // 分类列表
-      classifyList: [
-        {
-          id: '1',
-          label: 'javascript'
-        },
-        {
-          id: '2',
-          label: 'css'
-        }
-      ],
+      // classifyList: [
+      //   {
+      //     id: '1',
+      //     label: 'javascript'
+      //   },
+      //   {
+      //     id: '2',
+      //     label: 'css'
+      //   }
+      // ],
+      // 分类列表
+      classifyList: [],
       // 标签列表
       tagList: ['vue', 'react', 'typescript', 'node', 'css'],
-      type: ''
+      isUpdateContent: this.$route.params.id === 'add' ? false : this.$route.params.id
     }
   },
   created() {
-    let id = this.$route.params.id
-    this.type = id
-    if (id !== 'add') {
-      this.getContentData()
-    }
+    this.getClassifyList()
+    this.isUpdateContent ? this.getContentData() : ''
   },
   methods: {
+    getClassifyList() {
+      this.$api.getMetaList().then(res => {
+        // to do 
+        if (!res.data.errno) {
+          let list = res.data.data.metaInfo
+          for (let i = 0; i < list.length; i++) {
+            this.classifyList.push({id: i, label: list[i].classify})
+          }
+        }
+      })
+    },
     // 获取对应文章内容
     getContentData() {
-      let data = {id: this.type}
+      let data = {id: this.isUpdateContent}
       this.$api.getContentData(data).then(res => {
         if (!res.data.errno) {
           // to do
@@ -118,10 +131,32 @@ export default {
         }
       })
     },
+    // 新建文章内容
+    addContent() {
+      this.$api.addContent(this.formData).then(res => {
+        if (!res.data.errno) {
+          // to do
+          this.$message({
+            type: 'success',
+            message: '添加成功',
+            onClose: () => {
+              this.$router.push('/content/list')
+            }
+          })
+        }
+      })
+    },
     // 更新文章内容配置
     updateContent() {
       this.$api.updateContent(this.formData).then(res => {
         if (!res.data.errno) {
+          this.$message({
+            type: 'success',
+            message: '更新成功',
+            onClose: () => {
+              this.$router.push('/content/list')
+            }
+          })
         }
       })
     },
@@ -131,10 +166,12 @@ export default {
     // 监听markdown输入
     markDownChange (v, f) {
       this.formData.content = f
+      this.formData.description = f
     },
     // 提交信息
     onSubmit () {
       console.log(this.formData)
+      this.isUpdateContent ? this.updateContent() : this.addContent()
     }
   }
 }

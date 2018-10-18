@@ -9,7 +9,7 @@
           <el-input v-model="searchText" placeholder="关键字" class="search-input"></el-input>
         </el-col>
         <el-col :span="8">
-          <el-button type="primary" size="small" class="search-btn btn">查询</el-button>
+          <el-button type="primary" size="small" class="search-btn btn" @click="searchList">查询</el-button>
         </el-col>
       </el-row>
     </el-col>
@@ -35,6 +35,9 @@ export default {
   methods: {
     editorContent () {
       this.$emit('editorContent')
+    },
+    searchList () {
+      this.$emit('searchList', this.searchText)
     }
   }
   

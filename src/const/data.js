@@ -10,25 +10,25 @@ export const asideList = [
   },
   {
     id: '1',
-    name: '内容管理',
+    name: '文章管理',
     prop: 'content',
     icon: 'el-icon-edit-outline',
     path: '/content/list'
   },
-  {
-    id: '2',
-    name: '页面管理',
-    prop: 'page',
-    icon: 'el-icon-edit',
-    path: '/page/list'
-  },
-  {
-    id: '3',
-    name: '评论管理',
-    prop: 'comment',
-    icon: 'el-icon-menu',
-    path: '/comment/list'
-  },
+  // {
+  //   id: '2',
+  //   name: '页面管理',
+  //   prop: 'page',
+  //   icon: 'el-icon-edit',
+  //   path: '/page/list'
+  // },
+  // {
+  //   id: '3',
+  //   name: '评论管理',
+  //   prop: 'comment',
+  //   icon: 'el-icon-menu',
+  //   path: '/comment/list'
+  // },
   {
     id: '4',
     name: '分类管理',
@@ -36,13 +36,13 @@ export const asideList = [
     icon: 'el-icon-menu',
     path: '/classify/list'
   },
-  {
-    id: '5',
-    name: '标签管理',
-    prop: 'tag',
-    icon: 'el-icon-menu',
-    path: '/tag/list'
-  },
+  // {
+  //   id: '5',
+  //   name: '标签管理',
+  //   prop: 'tag',
+  //   icon: 'el-icon-menu',
+  //   path: '/tag/list'
+  // },
   {
     id: '6',
     name: '系统设置',

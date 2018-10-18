@@ -8,7 +8,8 @@
     <el-table-column :prop="item.prop" :width="item.width" :label="item.label" class-name="text-center" v-for="(item,index) in labelArray" :key="index">
       <template slot-scope="scope">
         <p v-if="item.prop !== 'setting'">
-          <span>{{ scope.row[item.prop] }}</span>
+          <span v-if="item.prop !== 'title'">{{ scope.row[item.prop] }}</span>
+          <span v-else @click="goToPage(scope.row.id)">{{ scope.row[item.prop] }}</span>
         </p>
         <p v-else>
           <el-button type="primary" icon="el-icon-edit" size="small" @click="editorExist(scope.row.id)"></el-button>
@@ -104,6 +105,9 @@ export default {
     deleteExist (id) {
       console.log('delete')
       this.$emit('deleteExist', id)
+    },
+    goToPage (id) {
+      this.$emit('goToPage', id)
     }
   }
 }
@@ -135,5 +139,8 @@ export default {
       overflow: hidden;
       text-overflow: ellipsis;
     }
+}
+.el-table__body-wrapper td:first-child:hover {
+  cursor: pointer;
 }
 </style>
