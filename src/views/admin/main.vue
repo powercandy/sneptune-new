@@ -114,6 +114,7 @@ export default {
     handleCommand (command) {
       if (command == '/login') {
         localStorage.removeItem('user_name')
+        localStorage.removeItem('user_info')
       }
       this.$router.push(command)
     }

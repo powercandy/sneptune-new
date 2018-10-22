@@ -12,7 +12,7 @@
             </el-col>
           </el-row>
           <p class="login-time">
-            上次登录时间:2018/9/26 上午10:49:19
+            上次登录时间:<span>{{last_login_time}}</span>
           </p>
         </el-col>
         <el-col :span="16" class="archive-box  block-box">
@@ -28,12 +28,21 @@
 
 <script>
 import echarts from 'echarts'
+import { mapGetters } from 'vuex'
 export default {
   data () {
     return {
       account: 'admin',
+      last_login_time: '',
       avatar: 'https://secure.gravatar.com/avatar/a71767393008c230de03ae4ad6ba7840'
     }
+  },
+  computed: {
+    ...mapGetters(['getUserName', 'getUserInfo'])
+  },
+  created() {
+    this.account = this.getUserName || 'custom'
+    this.last_login_time = this.getUserInfo.last_login_time || '无'
   },
   mounted () {
     this.setArchiveMap()
