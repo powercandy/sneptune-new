@@ -1,40 +1,35 @@
 <template>
   <div class="ad-controller">
     <div class="content">
-      <el-row type="flex" class="content-top" justify="space-between">
-        <el-col :span="8" class="account-info-box block-box">
-          <el-row class="account-info" type="flex">
-            <el-col :span="8" class="avatar-box">
-              <img :src="avatar" alt="用户头像">
-            </el-col>
-            <el-col class="account-name">
-              <span>{{account}}</span>
-            </el-col>
-          </el-row>
-          <p class="login-time">
-            上次登录时间:<span>{{last_login_time}}</span>
-          </p>
-        </el-col>
-        <el-col :span="16" class="archive-box  block-box">
-          <div class="archive-charts" id="archive">
-          </div>
-        </el-col>
-      </el-row>
-      <div class="block-box hot-article" id="hot">
-      </div>
+      <h2>欢迎<span>{{account}}</span>来到首页</h2>
+      <br>
+      <p>您上次登录的时间是：<span>{{last_login_time}}</span></p>
+      <br>
+      <p>您总共编辑了{{articleCount}}篇文章，其中已发布{{articlePublishCount}}篇，草稿{{articleDraftCount}}篇。</p>
+      <br>
+      <p>您编辑的文章其中最受欢迎的十篇如下：</p>
+      <br>
+      <ul>
+        <li v-for="(item, index) in articleHotArray" :key="index" class="flex-box">
+          <span>{{index + 1}}、{{item.title | addSymbol}}</span>
+          <span>{{item.view}}</span>
+        </li>
+      </ul>
     </div>
   </div>
 </template>
 
 <script>
-import echarts from 'echarts'
 import { mapGetters } from 'vuex'
 export default {
   data () {
     return {
-      account: 'admin',
-      last_login_time: '',
-      avatar: 'https://secure.gravatar.com/avatar/a71767393008c230de03ae4ad6ba7840'
+      account: 'admin',         // 用户名
+      last_login_time: '',      // 上次登录时间
+      articleHotArray: [],      // 热门文章
+      articleCount: '',         // 编辑文章数量
+      articlePublishCount: '',  //发布文章数量
+      articleDraftCount: ''     // 草稿数量
     }
   },
   computed: {
@@ -45,81 +40,59 @@ export default {
     this.last_login_time = this.getUserInfo.last_login_time || '无'
   },
   mounted () {
-    this.setArchiveMap()
-    this.setHotMap()
+    this.getContentList()
   },
   methods: {
-    setArchiveMap () {
-      let myChart = echarts.init(document.getElementById('archive'))
-      let xAxisData = ['2017-10', '2017-11', '2017-12', '2018-01', '2018-02', '2018-03']
-      let seriesData = ['10', '20', '40', '10', '5', '80']
-      myChart.setOption({
-        title: { text: '发布频率' },
-        tooltip: {},
-        xAxis: { data: xAxisData, axisLine: { lineStyle: { color: '#495060' } } },
-        yAxis: { axisLine: { lineStyle: { color: '#495060' } } },
-        series: [{ name: '点击次数', type: 'line', barWidth: 10, data: seriesData }]
+    /* 获取文章数据 */
+    getContentList() {
+      this.$api.getContentList().then(res => {
+          let data = res.data.data.contentInfo
+          this.articleHotArray = this.subData(data)
       })
     },
-    setHotMap () {
-      let myChart = echarts.init(document.getElementById('hot'))
-      let xAxisData = ['css', 'javascript', 'typescript', 'css', 'javascript', 'typescript']
-      let seriesData = ['10', '20', '40', '10', '20', '40']
-      myChart.setOption({
-        title: { text: '热门文章' },
-        tooltip: {},
-        xAxis: { data: xAxisData, axisLine: { lineStyle: { color: '#495060' } } },
-        yAxis: { axisLine: { lineStyle: { color: '#495060' } } },
-        series: [{ name: '文章数量', type: 'bar', barWidth: 10, data: seriesData }]
+    /* 过滤出阅读量前十 */
+    subData(data) {
+      let array = []
+      let count = data.length
+      data = data.filter(v => {
+        if (v.status == '1') {
+          return v
+        }
       })
+      this.articleCount = count
+      this.articlePublishCount = data.length
+      this.articleDraftCount = count - data.length
+      data.sort((a, b) => {return b.view - a.view})
+      data.forEach((v, index) => {
+        if (index < 10) {
+          array.push(v)
+        }
+      })
+      return array
+    }
+  },
+  filters: {
+    addSymbol(title) {
+      return '《' + title + '》'
     }
   }
 }
 </script>
 
 <style lang="less" scoped>
-.title {
-  margin-bottom: 20px;
-}
-.account-info-box {
-  height: 300px;
-}
-.block-box {
-  padding: 20px;
-  border: 1px solid #e9eaec;
-  border-radius: 4px;
+.ad-controller {
   background-color: #fff;
-  transition: all .2s ease-in-out;
-  &:hover {
-    box-shadow: 0 1px 6px rgba(0,0,0,.2);
-    border-color: #eee;
+  padding: 10px;
+  font-size: 12px;
+  .content {
+    padding: 20px;
   }
-}   
-.account-info {
-  height: 80px;
-  .el-col {
-    height: 100%;
+  .flex-box {
+    width: 300px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
   }
-  .account-name {
-    font-size: 32px;
-    color: #2d8cf0;
-    line-height: 80px;
-    padding-left: 20px;
-  } 
-} 
-.login-time {
-  padding: 30px 0;
-  font-size: 14px;
 }
-.archive-box {
-  height: 300px;
-  margin-left: 10px;
-}
-.hot-article {
-  height: 332px;
-  margin-top: 10px;
-}
-#archive {
-  height: 300px;
-}
+
 </style>

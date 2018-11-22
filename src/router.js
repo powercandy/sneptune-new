@@ -1,38 +1,35 @@
 
 // 登陆页面
-const adLogin = () => import(/* webpackChunkName: "adMain" */ './views/admin/login.vue')
+
+const adLogin = r => require.ensure([], (require) => r(require('./views/admin/login.vue')), 'adLogin')
 // 页面管理
-const adArticle = () => import(/* webpackChunkName: "adMain" */ './views/page/index.vue')
+
+const adArticle = r => require.ensure([], (require) => r(require('./views/page/index.vue')), 'adArticle')
 // 后台
-const adMain = () => import(/* webpackChunkName: "adMain" */ './views/admin/main.vue')
-// 后台 - 控制台
-const adController = () => import(/* webpackChunkName: "adController" */ './views/admin/controller.vue')
-// 后台 - 评论管理-列表
-const commentList = () => import(/* webpackChunkName: "commentList" */ './views/admin/commentList.vue')
-// 后台 - 评论管理-编辑
-const commentEditor = () => import(/* webpackChunkName: "commentEditor" */ './views/admin/commentEditor.vue')
+
+const adMain = r => require.ensure([], (require) => r(require('./views/admin/main.vue')), 'adMain')
+
+// 后台 - 首页
+const adController = r => require.ensure([], (require) => r(require('./views/admin/controller.vue')), 'adController')
+
 // 后台 - 内容管理-列表
-const contentList = () => import(/* webpackChunkName: "contentList" */ './views/admin/contentList.vue')
+const contentList = r => require.ensure([], (require) => r(require('./views/admin/contentList.vue')), 'contentList')
+
 // 后台 - 内容管理-编辑
-const contentEditor = () => import(/* webpackChunkName: "contentEditor" */ './views/admin/contentEditor.vue')
-// 后台 - 页面管理-列表
-const pageList = () => import(/* webpackChunkName: "pageList" */ './views/admin/pageList.vue')
-// 后台 - 页面管理-编辑
-const pageEditor = () => import(/* webpackChunkName: "pageEditor" */ './views/admin/pageEditor.vue')
+const contentEditor = r => require.ensure([], (require) => r(require('./views/admin/contentEditor.vue')), 'contentEditor')
+
 // 后台 - 分类管理-列表
-const classifyList = () => import(/* webpackChunkName: "classifyList" */ './views/admin/classifyList.vue')
+const classifyList = r => require.ensure([], (require) => r(require('./views/admin/classifyList.vue')), 'classifyList')
+
 // 后台 - 分类管理-编辑
-const classifyEditor = () => import(/* webpackChunkName: "classifyEditor" */ './views/admin/classifyEditor.vue')
-// 后台 - 标签管理-列表
-const tagList = () => import(/* webpackChunkName: "tagList" */ './views/admin/tagList.vue')
-// 后台 - 标签管理
-const tagEditor = () => import(/* webpackChunkName: "tagEditor" */ './views/admin/tagEditor.vue')
+const classifyEditor = r => require.ensure([], (require) => r(require('./views/admin/classifyEditor.vue')), 'classifyEditor')
+
 // 后台 - 设置管理
-const adSetting = () => import(/* webpackChunkName: "adSetting" */ './views/admin/setting.vue')
+const adSetting = r => require.ensure([], (require) => r(require('./views/admin/setting.vue')), 'adSetting')
 // 后台 - 个人资料
-const adMessage = () => import(/* webpackChunkName: "adMessage" */ './views/admin/message.vue')
+const adMessage = r => require.ensure([], (require) => r(require('./views/admin/message.vue')), 'adMessage')
 // 后台 - 修改密码
-const adModifyPsd = () => import(/* webpackChunkName: "adModifyPsd" */ './views/admin/modifyPsd.vue')
+const adModifyPsd = r => require.ensure([], (require) => r(require('./views/admin/modifyPsd.vue')), 'adModifyPsd')
 
 const routes = [
   {
@@ -72,24 +69,6 @@ const routes = [
         }
       },
       {
-        path: 'comment/list',
-        name: 'commentList',
-        component: commentList,
-        meta: {
-          requiresAuth: true,
-          title: '评论列表'
-        }
-      },
-      {
-        path: 'comment/editor',
-        name: 'commentEditor',
-        component: commentEditor,
-        meta: {
-          requiresAuth: true,
-          title: '评论编辑'
-        }
-      },
-      {
         path: 'content/list',
         name: 'contentList',
         component: contentList,
@@ -108,24 +87,6 @@ const routes = [
         }
       },
       {
-        path: 'page/list',
-        name: 'pageList',
-        component: pageList,
-        meta: {
-          requiresAuth: true,
-          title: '页面列表'
-        }
-      },
-      {
-        path: 'page/editor',
-        name: 'pageEditor',
-        component: pageEditor,
-        meta: {
-          requiresAuth: true,
-          title: '页面编辑'
-        }
-      },
-      {
         path: 'classify/list',
         name: 'classifyList',
         component: classifyList,
@@ -141,24 +102,6 @@ const routes = [
         meta: {
           requiresAuth: true,
           title: '分类编辑'
-        }
-      },
-      {
-        path: 'tag/list',
-        name: 'tagList',
-        component: tagList,
-        meta: {
-          requiresAuth: true,
-          title: '标签列表'
-        }
-      },
-      {
-        path: 'tag/editor',
-        name: 'tagEditor',
-        component: tagEditor,
-        meta: {
-          requiresAuth: true,
-          title: '标签编辑'
         }
       },
       {

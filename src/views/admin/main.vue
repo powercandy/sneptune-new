@@ -1,8 +1,8 @@
 <template>
   <el-container class="admin-main">
     <el-aside :width="asideWidth">
-      <div class="aside-header">
-        aside-header
+      <div class="aside-header" @click="goHome">
+        Home
       </div>
       <ul>
         <li v-for="(item, index) in asideList" :key="index" @click="selectContent(item.path, item.prop)" :class="[item.prop === selectTag ? 'select-tag' : '']">
@@ -100,15 +100,21 @@ export default {
     this.account = this.getUserName
   },
   methods: {
+    /* 选择分类 */
     selectContent (path, prop) {
       this.$router.push(path)
       this.selectTag = prop
     },
+    /* 隐藏侧边栏 */
     hideAside () {
       this.hideFlag = !this.hideFlag
       this.hideFlag
         ? this.asideWidth = '12.5%'
         : this.asideWidth = '5%'
+    },
+    goHome() {
+      this.$router.push('/')
+      this.selectTag = asideList[0].prop
     },
     // 退出登录
     handleCommand (command) {
@@ -156,8 +162,8 @@ export default {
 }
 
 .avatar {
-  width: 40px;
-  height: 40px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
   vertical-align: middle;
   margin-left: 10px;

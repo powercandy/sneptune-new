@@ -38,7 +38,8 @@ module.exports = {
     // 代理
     proxy: {
       '/api': {
-        target: 'http://localhost:8363',
+        // target: 'http://localhost:8363',
+        target: 'http://47.105.48.180:8363',
         secure: false,
         pathRewrite: {
           '/api': ''

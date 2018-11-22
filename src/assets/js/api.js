@@ -1,6 +1,7 @@
 import axios from 'axios'
 // 本地环境
 axios.defaults.baseURL = 'http://localhost:8090/api'
+// axios.defaults.baseURL = 'https://www.sneptune.cn/api'
 
 export default {
   /* 登录接口 */

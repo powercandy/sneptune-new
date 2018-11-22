@@ -3,7 +3,7 @@
 export const asideList = [
   {
     id: '0',
-    name: '控制台',
+    name: '首页',
     icon: 'el-icon-star-off',
     prop: 'controller',
     path: '/controller'
@@ -43,13 +43,13 @@ export const asideList = [
   //   icon: 'el-icon-menu',
   //   path: '/tag/list'
   // },
-  {
-    id: '6',
-    name: '系统设置',
-    prop: 'setting',
-    icon: 'el-icon-setting',
-    path: '/setting'
-  }
+  // {
+  //   id: '6',
+  //   name: '系统设置',
+  //   prop: 'setting',
+  //   icon: 'el-icon-setting',
+  //   path: '/setting'
+  // }
 ]
 
 // 

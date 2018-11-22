@@ -85,7 +85,7 @@ axios.interceptors.request.use((config) => {
 })
 /* 拦截请求后 */
 axios.interceptors.response.use((response) => {
-  console.log(response)
+  // console.log(response)
   if (response.data.errno === 1000) {
     vm.$message.error(response.data.errmsg)
   }
