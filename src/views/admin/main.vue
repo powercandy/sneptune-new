@@ -65,7 +65,7 @@ export default {
       asideWidth: '12.5%',
       account: 'admin',
       breadcrumbArray: {
-        controller: '控制台',
+        controller: '首页',
         content: '文章',
         page: '页面',
         comment: '评论',

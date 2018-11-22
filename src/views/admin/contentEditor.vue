@@ -4,9 +4,6 @@
       <el-form-item label="文章标题" prop="title">
         <el-input placeholder="文章标题" v-model="formData.title"></el-input>
       </el-form-item>
-      <!-- <el-form-item label="文章标识" prop="slug">
-        <el-input placeholder="文章标识" v-model="formData.slug"></el-input>
-      </el-form-item> -->
       <el-form-item label="文章分类" prop="classify">
         <el-select v-model="formData.classify" placeholder="请选择">
           <el-option
@@ -17,30 +14,12 @@
           </el-option>
         </el-select>
       </el-form-item>
-      <!-- <el-form-item label="缩略图" prop="thumb">
-        <el-input placeholder="缩略图" v-model="formData.thumb"></el-input>
-      </el-form-item> -->
-      <!-- <el-form-item label="发布时间" prop="date">
-        <el-date-picker
-          v-model="formData.modify_time"
-          type="datetime"
-          value-format="timestamp"
-          placeholder="选择日期">
-        </el-date-picker>
-      </el-form-item> -->
       <el-form-item label="状态" porp="status">
         <el-radio-group v-model="formData.status">
           <el-radio :label="0">草稿</el-radio>
           <el-radio :label="1">发布</el-radio>
         </el-radio-group>
       </el-form-item>
-      <!-- <el-form-item label="标签" prop="tag">
-        <el-checkbox-group
-          v-model="formData.tag"
-          @change="handleCheckAllChange">
-          <el-checkbox v-for="city in tagList" :label="city" :key="city" name="type">{{city}}</el-checkbox>
-        </el-checkbox-group>
-      </el-form-item> -->
       <el-form-item label="文章内容" prop="content">
         <mavon-editor v-model="formData.markdown" fontSize="12px" @change="markDownChange"/>
       </el-form-item>
@@ -58,12 +37,8 @@ export default {
       // 表单数据
       formData: {
         title: '', // 标题
-        // slug: '', // 
         classify: '', // 分类
-        // thumb: '', // 缩略图
-        // modify_time: '', // 修改时间
-        status: '', // 发布状态
-        // tag: [], // 标签列表
+        status: 0, // 发布状态
         markdown: '', // 文章markdown内容
         content: '', // 文章html结构
         description: '' // 文章描述
@@ -74,30 +49,10 @@ export default {
           { required: true, message: '请输入标题', trigger: 'blur' },
           { min: 3, max: 100, message: '长度在 3 到 5 个字符', trigger: 'blur' }
         ],
-        // 分类规则
-        // classify: [
-        //   { required: true, message: '请选择分类', trigger: 'change' }
-        // ],
-        // 日期规则
-        // date: [
-        //   { required: true, message: '请选择发布时间', trigger: 'change' }
-        // ],
-        // 标签规则
         tag: [
           { type: 'array', required: true, message: '请至少选择一个标签', trigger: 'change' }
         ]
       },
-      // 分类列表
-      // classifyList: [
-      //   {
-      //     id: '1',
-      //     label: 'javascript'
-      //   },
-      //   {
-      //     id: '2',
-      //     label: 'css'
-      //   }
-      // ],
       // 分类列表
       classifyList: [],
       // 标签列表
