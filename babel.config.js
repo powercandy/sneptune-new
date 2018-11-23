@@ -1,15 +1,15 @@
 module.exports = {
-  presets: [
-    '@vue/app'
+  "presets": [
+    "@vue/app"
+  ],
+  "plugins": [
+    [
+      "component",
+      {
+        "libraryName": "element-ui",
+        "styleLibraryName": "theme-chalk"
+      },
+      "syntax-dynamic-import"
+    ]
   ]
-  // 引入部分element ui 组件
-  // "plugins": [
-  //   [
-  //     "component",
-  //     {
-  //       "libraryName": "element-ui",
-  //       "styleLibraryName": "theme-chalk"
-  //     }
-  //   ]
-  // ]
 }

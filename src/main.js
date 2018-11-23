@@ -10,8 +10,51 @@ import store from './store/index'
 import api from '@/assets/js/api'
 
 // 引入element-ui组件库
-import Element from 'element-ui'
-import 'element-ui/lib/theme-chalk/index.css'
+import { 
+  Button,
+  Input,
+  Form,
+  FormItem,
+  Radio,
+  RadioGroup,
+  Aside,
+  Col,
+  Row,
+  Table,
+  TableColumn,
+  Pagination,
+  Container,
+  Header,
+  Dropdown,
+  DropdownMenu,
+  DropdownItem,
+  Breadcrumb,
+  BreadcrumbItem,
+  Message,
+  Main
+} from 'element-ui'
+// import 'element-ui/lib/theme-chalk/index.css'
+
+Vue.use(Button)
+Vue.use(Input)
+Vue.use(Form)
+Vue.use(FormItem)
+Vue.use(Radio)
+Vue.use(RadioGroup)
+Vue.use(Aside)
+Vue.use(Col)
+Vue.use(Row)
+Vue.use(Table)
+Vue.use(TableColumn)
+Vue.use(Pagination)
+Vue.use(Container)
+Vue.use(Header)
+Vue.use(Dropdown)
+Vue.use(DropdownMenu)
+Vue.use(DropdownItem)
+Vue.use(Breadcrumb)
+Vue.use(BreadcrumbItem)
+Vue.use(Main)
 
 // 引入markdown编辑
 import mavonEditor from 'mavon-editor'
@@ -19,10 +62,11 @@ import 'mavon-editor/dist/css/index.css'
 
 // 全局使用
 Vue.use(mavonEditor)
-Vue.use(Element)
+// Vue.use(Element)
 
 // 挂载全局请求方法
 Vue.prototype.$api = api
+Vue.prototype.$message = Message;
 
 // 样式重置
 require('./assets/css/reset.css')

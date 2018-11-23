@@ -1,3 +1,7 @@
+const CompressionWebpackPlugin = require('compression-webpack-plugin');
+const productionGzipExtensions = ['js', 'css'];
+const isProduction = process.env.NODE_ENV === 'production';
+
 module.exports = {
   // 基本路径
   baseUrl: './',
@@ -24,7 +28,16 @@ module.exports = {
   // eslint-loader是否在保存的时候检查
   lintOnSave: true,
   // webapck配置
-  configureWebpack: () => {},
+  configureWebpack: config => {
+    if (isProduction) {
+      config.plugins.push(new CompressionWebpackPlugin({
+        algorithm: 'gzip',
+        test: new RegExp('\\.(' + productionGzipExtensions.join('|') + ')$'),
+        threshold: 10240,
+        minRatio: 0.8
+      }))
+    }
+  },
   // 开发服务配置
   devServer: {
     // 启动时打开浏览器
