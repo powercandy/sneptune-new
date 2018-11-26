@@ -25,14 +25,14 @@ import { mapGetters } from 'vuex'
 export default {
   data () {
     return {
-      formData: {
+      formData: {   // 密码信息表单
         username: 'admin',
         oldPsd: '',
         newPsd: '',
         confirmPsd: '',
         id: ''
       },
-      rules: {
+      rules: {    // 表单填写规则
         oldPsd: { required: true, message: '请输入旧密码', trigger: 'blur' },
         newPsd: { required: true, message: '请输入新密码', trigger: 'blur' },
         confirmPsd: { required: true, message: '请再次输入新密码', trigger: 'blur' }
@@ -46,6 +46,7 @@ export default {
     this.formData.username = this.getUserName
   },
   methods: {
+    /* 更新密码 */
     updatePsd () {
       this.$api.updatePsd(this.formData).then(res => {
         if (!res.data.errno) {

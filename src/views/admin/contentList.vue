@@ -3,6 +3,7 @@
     <ad-search :searchLabel="searchLabel" @editorContent=editorContent @searchList="searchList"></ad-search>
     <ad-table v-if="array.length"
     :dataArray="array"
+    name="文章"
     :labelArray="tableLabel"
     @editorExist="editorExist"
     @deleteExist="deleteExist"

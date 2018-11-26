@@ -31,7 +31,7 @@ import { mapMutations, mapGetters } from 'vuex'
 export default {
   data () {
     return {
-      formData: {
+      formData: {   // 个人信息
         username: 'admin',
         email: '17600112740@163.com',
         github: 'powercandy',
@@ -50,6 +50,7 @@ export default {
     console.log(this.formData)
   },
   methods: {
+    /* 更新个人信息 */
     updateMes () {
       this.$api.updateMessage(this.formData).then(res => {
         if (!res.data.errNo) {

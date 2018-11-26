@@ -1,11 +1,12 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import Router from 'vue-router'
+// import Router from 'vue-router'
 import axios from 'axios'
 // import { sync } from 'vuex-router-sync'
 
 import App from './App.vue'
-import routes from './router'
+// import routes from './router'
+import router from './routers/index.js'
 import store from './store/index'
 import api from '@/assets/js/api'
 
@@ -31,7 +32,10 @@ import {
   Breadcrumb,
   BreadcrumbItem,
   Message,
-  Main
+  MessageBox,
+  Main,
+  Select,
+  Option
 } from 'element-ui'
 // import 'element-ui/lib/theme-chalk/index.css'
 
@@ -55,6 +59,8 @@ Vue.use(DropdownItem)
 Vue.use(Breadcrumb)
 Vue.use(BreadcrumbItem)
 Vue.use(Main)
+Vue.use(Select)
+Vue.use(Option)
 
 // 引入markdown编辑
 import mavonEditor from 'mavon-editor'
@@ -67,6 +73,7 @@ Vue.use(mavonEditor)
 // 挂载全局请求方法
 Vue.prototype.$api = api
 Vue.prototype.$message = Message;
+Vue.prototype.$confirm = MessageBox.confirm;
 
 // 样式重置
 require('./assets/css/reset.css')
@@ -75,14 +82,14 @@ require('./assets/css/common.css')
 /* If open productionTip */
 Vue.config.productionTip = false
 
-Vue.use(Router)
+// Vue.use(Router)
 Vue.use(Vuex)
 
-const router = new Router({
-  mode: 'hash',
-  base: __dirname,
-  routes
-})
+// const router = new Router({
+//   mode: 'hash',
+//   base: __dirname,
+//   routes
+// })
 // sync(store, router)
 
 /* 路由进入前 */

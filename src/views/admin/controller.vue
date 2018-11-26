@@ -72,6 +72,7 @@ export default {
     }
   },
   filters: {
+    /* 给文章加上书名号 */
     addSymbol(title) {
       return '《' + title + '》'
     }

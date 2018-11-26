@@ -55,8 +55,7 @@ export default {
       },
       // 分类列表
       classifyList: [],
-      // 标签列表
-      tagList: ['vue', 'react', 'typescript', 'node', 'css'],
+      // 判断页面是新增还是修改
       isUpdateContent: this.$route.params.id === 'add' ? false : this.$route.params.id
     }
   },
@@ -65,6 +64,7 @@ export default {
     this.isUpdateContent ? this.getContentData() : ''
   },
   methods: {
+    /* 获取分类列表 */
     getClassifyList() {
       this.$api.getMetaList().then(res => {
         // to do 

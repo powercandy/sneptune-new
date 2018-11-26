@@ -33,6 +33,7 @@ export default {
     this.$router.push('/')
   },
   methods: {
+    /* 提交登录信息 */
     submitLogin () {
       if (!this.flag) return false
       this.flag = false

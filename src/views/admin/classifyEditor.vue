@@ -24,13 +24,6 @@
 export default {
   data () {
     return {
-      // formData: {
-      //   name: 'classifyEditor',
-      //   type: 'sneptune',
-      //   sort: '1',
-      //   description: 'classifyEditorclassifyEditorclassifyEditor',
-      //   classify: 'sneptune'
-      // },
       formData: {
         name: '',
         type: '',
@@ -87,7 +80,6 @@ export default {
           }
         })
       }
-      // 更新数据
     }
   }
 }

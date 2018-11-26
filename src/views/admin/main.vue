@@ -49,40 +49,25 @@
 import { mapGetters } from 'vuex'
 import { asideList } from '../../const/data.js'
 export default {
-  /**
-   * 【data】
-   * asideList        { Array }         侧边栏数据列表
-   * selectTag        { String }        选中的当前侧边栏选项
-   * hideFlag         { Boolean }       是否隐藏侧边栏选项名字，默认值为true（不隐藏）
-   * account          { String }        登录的用户名
-   * breadcrumbArray  { Object }        路由对应的组件名
-   */
   data () {
     return {
-      asideList: asideList,
-      selectTag: '0',
-      hideFlag: true,
-      asideWidth: '12.5%',
-      account: 'admin',
-      breadcrumbArray: {
+      asideList: asideList, // 侧边栏数据列表
+      selectTag: '0',       // 选中的当前侧边栏选项
+      hideFlag: true,       // 是否隐藏侧边栏选项名字，默认值为true（不隐藏）
+      asideWidth: '12.5%',  // 侧边栏默认宽度
+      account: 'admin',     // 登录的用户名
+      breadcrumbArray: {    // 路由对应的组件名
         controller: '首页',
         content: '文章',
-        page: '页面',
-        comment: '评论',
         classify: '分类',
-        tag: '标签',
         setting: '设置',
         list: '列表',
         editor: '编辑'
       }
     }
   },
-  /**
-   * 【computed】
-   * _breadcrumbArray { Array }   根据路由显示主视图区的面包屑导航名
-   * getUserName      { String }  store中获取登录用户名
-   */
   computed: {
+    /* 根据路由显示主视图区的面包屑导航名 */
     _breadcrumbArray () {
       let array = []
       let breads = this.$route.path.split('/')
@@ -112,6 +97,7 @@ export default {
         ? this.asideWidth = '12.5%'
         : this.asideWidth = '5%'
     },
+    /* 跳转至首页Home */
     goHome() {
       this.$router.push('/')
       this.selectTag = asideList[0].prop
